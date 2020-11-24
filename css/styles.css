@@ -1,0 +1,14 @@
+/*
+font-family: 'Rajdhani', sans-serif;
+*/
+.fonte1 {
+  font-family: "Rajdhani", cursive;
+}
+.fundo {
+  background-color: #b71c1c;
+}
+.centro {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

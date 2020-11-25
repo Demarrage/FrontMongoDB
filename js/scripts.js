@@ -29,3 +29,23 @@ btn.onclick = function () {
     })
     .catch((erro) => console.erro(`Erro ao tentar cadastrar ${erro}`));
 };
+function listarClientes() {
+  var tabela = document.getElementById("tabela");
+  fetch("http://localhost:4505")
+    .then((response) => response.json())
+    .then((rs) => {
+      for (var i = 0; i < rs.saida.length; i++) {
+        tabela.innerHTML += "<tr>";
+        tabela.innerHTML += "<td>" + rs.saida[i].id + "<td>";
+        tabela.innerHTML += "<td>" + rs.saida[i].nomecliente + "<td>";
+        tabela.innerHTML += "<td>" + rs.saida[i].email + "<td>";
+        tabela.innerHTML += "<td>" + rs.saida[i].telefone + "<td>";
+        tabela.innerHTML += "<td>" + rs.saida[i].cpf + "<td>";
+        tabela.innerHTML += "<td>" + rs.saida[i].idade + "<td>";
+
+        tabela.innerHTML += "<td> icone </td>";
+        tabela.innerHTML += "<td> icone </td>";
+        tabela.innerHTML += "</tr>";
+      }
+    });
+}

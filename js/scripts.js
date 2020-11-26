@@ -18,7 +18,7 @@ btn.onclick = function () {
       email: email.value,
       telefone: telefone.value,
       cpf: cpf.value,
-      idede: idade.value,
+      idade: idade.value,
     }),
   })
     .then((response) => response.json())
@@ -35,17 +35,53 @@ function listarClientes() {
     .then((response) => response.json())
     .then((rs) => {
       for (var i = 0; i < rs.saida.length; i++) {
-        tabela.innerHTML += "<tr>";
-        tabela.innerHTML += "<td>" + rs.saida[i].id + "<td>";
-        tabela.innerHTML += "<td>" + rs.saida[i].nomecliente + "<td>";
-        tabela.innerHTML += "<td>" + rs.saida[i].email + "<td>";
-        tabela.innerHTML += "<td>" + rs.saida[i].telefone + "<td>";
-        tabela.innerHTML += "<td>" + rs.saida[i].cpf + "<td>";
-        tabela.innerHTML += "<td>" + rs.saida[i].idade + "<td>";
-
-        tabela.innerHTML += "<td> icone </td>";
-        tabela.innerHTML += "<td> icone </td>";
-        tabela.innerHTML += "</tr>";
+        tabela.innerHTML +=
+          "<tr>" +
+          "<td>" +
+          rs.saida[i]._id +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].nomecliente +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].email +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].telefone +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].cpf +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].idade +
+          "<td>" +
+          "<td>" +
+          rs.saida[i].datacadastro +
+          "<td>" +
+          '<td><a href="atualizar.html?id=' +
+          rs.saida[i]._id +
+          '"><i class="material-icons" style="cursor:pointer"> refresh </i> </a> </td>' +
+          '<td> <i class="material-icons" style="cursor:pointer" onclick="apagar(\'' +
+          rs.saida[i]._id +
+          "')\"> delete</i></td>" +
+          "</tr>";
       }
     });
+}
+function apagar(id) {
+  if (confirm("voce tem certeza de que deseja apagar esse cliente?") == 1) {
+    fetch("http://localhost:4505/apagar/" + id, {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((rs) => {
+        alert(rs.resultado);
+        window.location.reload();
+      })
+      .catch((erro) => console.error(`Erro ao tentar a pagar ${erro}`));
+  }
 }
